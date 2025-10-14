@@ -1,0 +1,91 @@
+/* Outer clock container */
+.react-clock {
+  width: 250px;
+  height: 250px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+
+/* Clock face (circle background + border) */
+.react-clock__face {
+  position: absolute;
+  inset: 0;
+  border: 3px solid #fff;        /* Light mode: white border */
+  border-radius: 50%;
+  background: #ffffff;           /* Light mode: white face */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Hour marks */
+.react-clock__hour-mark .react-clock__mark__body {
+  width: 8px;
+  top: 0;
+  bottom: 90%;
+  background: #000;              /* Light mode: black marks */
+  border-radius: 2px;
+}
+
+/* Minute marks */
+.react-clock__minute-mark .react-clock__mark__body {
+  width: 3px;
+  top: 0;
+  bottom: 97%;
+  background: #000;              /* Light mode: black marks */
+  border-radius: 2px;
+}
+
+/* Hour + minute hands */
+.react-clock__hour-hand__body,
+.react-clock__minute-hand__body {
+  background: #000;              /* Light mode: black hands */
+  border-radius: 2px;
+}
+
+/* Second hand */
+.react-clock__second-hand__body {
+  background: #e63946;           /* red */
+}
+
+/* Center dot */
+.react-clock__second-hand__body:after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #e63946;
+  border-radius: 50%;
+  top: -3px;
+  left: -2px;
+}
+
+/* ─────────────────────────────── */
+/* DARK THEME INVERSION */
+/* ─────────────────────────────── */
+.dark .react-clock__face {
+  border-color: #000;            /* Invert: black border */
+  background: #111;              /* Dark gray/black face */
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+.dark .react-clock__hour-mark .react-clock__mark__body,
+.dark .react-clock__minute-mark .react-clock__mark__body,
+.dark .react-clock__hour-hand__body,
+.dark .react-clock__minute-hand__body {
+  background: #fff;              /* Invert: white marks & hands */
+}
+
+.dark .react-clock__second-hand__body {
+  background: #ff5a5f;           /* Keep red pop for visibility */
+}
+
+.dark .react-clock__second-hand__body:after {
+  background: #ff5a5f;
+}
+
+/* Optional: smoother transition between themes */
+.react-clock__face,
+.react-clock__mark__body,
+.react-clock__hand__body {
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
