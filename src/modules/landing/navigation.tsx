@@ -13,24 +13,31 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
 
-  const navItems = [
-    { name: "Features", href: "#features", icon: Users },
-    { name: "Demo", href: "#showcase", icon: Brain },
-    { name: "Benefits", href: "#benefits", icon: BarChart3 },
-    {
-      name: "GitHub",
-      href: "https://github.com/adarshaacharya/humantryx",
-      icon: Github,
-      external: true,
-    },
-  ];
+const navItems = session
+  ? [
+      { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
+      { name: "Profile", href: "/profile", icon: Users },
+      { name: "Settings", href: "/settings", icon: Brain },
+    ]
+  : [
+      { name: "Features", href: "#features", icon: Users },
+      { name: "Demo", href: "#showcase", icon: Brain },
+      { name: "Benefits", href: "#benefits", icon: BarChart3 },
+      {
+        name: "GitHub",
+        href: "https://github.com/adarshaacharya/humantryx",
+        icon: Github,
+        external: true,
+      },
+    ];
+
 
   return (
     <nav className="border-border/50 bg-background/80 fixed top-0 z-50 w-full border-b backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Logo size="md" showText={true} />
+          <Logo size="lg" showText={true} />
 
           {/* Desktop Navigation */}
           <div className="hidden items-center space-x-8 md:flex">

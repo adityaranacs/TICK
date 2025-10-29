@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { motion } from "motion/react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { X, CheckCircle, Brain, Zap, FileText, BarChart3 } from "lucide-react";
+import { motion } from "motion/react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { X, CheckCircle, Brain, Zap, FileText, BarChart3 } from "lucide-react"
 
 export function BenefitsSection() {
   const comparisons = [
@@ -34,11 +34,7 @@ export function BenefitsSection() {
         icon: CheckCircle,
         title: "AI Leave Management",
         description: "Smart approvals based on team capacity",
-        benefits: [
-          "Instant decisions",
-          "Team optimization",
-          "Automated tracking",
-        ],
+        benefits: ["Instant decisions", "Team optimization", "Automated tracking"],
       },
     },
     {
@@ -68,34 +64,24 @@ export function BenefitsSection() {
         icon: Zap,
         title: "Automated Payroll",
         description: "AI ensures accuracy and compliance",
-        benefits: [
-          "Error-free processing",
-          "Tax compliance",
-          "Instant payslips",
-        ],
+        benefits: ["Error-free processing", "Tax compliance", "Instant payslips"],
       },
     },
-  ];
+  ]
 
   return (
-    <section
-      id="benefits"
-      className="relative overflow-hidden px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24"
-    >
-      {/* Background */}
-      <div className="from-background to-muted/30 absolute inset-0 bg-gradient-to-br" />
-
-      <div className="relative mx-auto max-w-7xl">
+    <section id="benefits" className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+      <div className="mx-auto max-w-7xl">
         {/* Section Header */}
-        <div className="mb-12 text-center sm:mb-16">
+        <div className="mb-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mb-4"
           >
-            <Badge variant="secondary" className="px-4 py-2">
-              <BarChart3 className="mr-2 h-4 w-4" />
+            <Badge variant="secondary" className="px-3 py-1 text-xs font-medium">
+              <BarChart3 className="mr-2 h-3 w-3" />
               Traditional vs Modern
             </Badge>
           </motion.div>
@@ -105,12 +91,9 @@ export function BenefitsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-foreground mb-4 text-3xl font-bold sm:text-4xl lg:text-5xl"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-balance tracking-tight"
           >
-            Why Companies Are{" "}
-            <span className="from-primary to-primary/70 bg-gradient-to-r bg-clip-text text-transparent">
-              Making the Switch
-            </span>
+            Why Companies Are <span className="text-primary">Making the Switch</span>
           </motion.h2>
 
           <motion.p
@@ -118,52 +101,44 @@ export function BenefitsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-muted-foreground mx-auto max-w-3xl text-lg"
+            className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed"
           >
-            See the dramatic difference between traditional HR methods and our
-            AI-powered approach. The choice is clear when you compare side by
-            side.
+            See the dramatic difference between traditional HR methods and our AI-powered approach. The choice is clear
+            when you compare side by side.
           </motion.p>
         </div>
 
         {/* Comparisons Grid */}
-        <div className="space-y-12">
+        <div className="space-y-8">
           {comparisons.map((comparison, index) => (
             <motion.div
               key={comparison.category}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="grid items-center gap-8 lg:grid-cols-2"
+              transition={{ delay: index * 0.1 }}
+              className="grid items-stretch gap-6 lg:grid-cols-2"
             >
               {/* Traditional Way */}
-              <Card className="relative overflow-hidden border border-red-200/50 bg-red-50/30 dark:border-red-800/50 dark:bg-red-950/20">
+              <Card className="relative overflow-hidden border-border/50 bg-card hover:border-border/80 transition-all duration-300">
                 <CardContent className="p-8">
                   <div className="mb-4 flex items-center justify-between">
-                    <Badge variant="destructive" className="text-xs">
+                    <Badge variant="outline" className="text-xs font-medium">
                       Traditional Way
                     </Badge>
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-100 dark:bg-red-900">
-                      <comparison.traditional.icon className="h-4 w-4 text-red-600 dark:text-red-400" />
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+                      <comparison.traditional.icon className="h-4 w-4 text-muted-foreground" />
                     </div>
                   </div>
 
-                  <h3 className="text-foreground mb-2 text-xl font-semibold">
-                    {comparison.traditional.title}
-                  </h3>
+                  <h3 className="mb-2 text-lg font-semibold text-foreground">{comparison.traditional.title}</h3>
 
-                  <p className="text-muted-foreground mb-4">
-                    {comparison.traditional.description}
-                  </p>
+                  <p className="text-muted-foreground mb-6 text-sm">{comparison.traditional.description}</p>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {comparison.traditional.problems.map((problem) => (
-                      <div
-                        key={problem}
-                        className="flex items-center text-sm text-red-600 dark:text-red-400"
-                      >
-                        <X className="mr-2 h-3 w-3" />
+                      <div key={problem} className="flex items-center text-sm text-muted-foreground">
+                        <X className="mr-3 h-4 w-4 text-muted-foreground/50 flex-shrink-0" />
                         {problem}
                       </div>
                     ))}
@@ -172,35 +147,23 @@ export function BenefitsSection() {
               </Card>
 
               {/* Modern Way */}
-              <Card className="relative overflow-hidden border border-green-200/50 bg-green-50/30 dark:border-green-800/50 dark:bg-green-950/20">
+              <Card className="relative overflow-hidden border-primary/30 bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/50 transition-all duration-300">
                 <CardContent className="p-8">
                   <div className="mb-4 flex items-center justify-between">
-                    <Badge
-                      variant="default"
-                      className="bg-green-600 text-xs text-white hover:bg-green-700"
-                    >
-                      Humantryx Way
-                    </Badge>
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
-                      <comparison.modern.icon className="h-4 w-4 text-green-600 dark:text-green-400" />
+                    <Badge className="bg-primary text-primary-foreground text-xs font-medium">Our Way</Badge>
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                      <comparison.modern.icon className="h-4 w-4 text-primary" />
                     </div>
                   </div>
 
-                  <h3 className="text-foreground mb-2 text-xl font-semibold">
-                    {comparison.modern.title}
-                  </h3>
+                  <h3 className="mb-2 text-lg font-semibold text-foreground">{comparison.modern.title}</h3>
 
-                  <p className="text-muted-foreground mb-4">
-                    {comparison.modern.description}
-                  </p>
+                  <p className="text-muted-foreground mb-6 text-sm">{comparison.modern.description}</p>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {comparison.modern.benefits.map((benefit) => (
-                      <div
-                        key={benefit}
-                        className="flex items-center text-sm text-green-600 dark:text-green-400"
-                      >
-                        <CheckCircle className="mr-2 h-3 w-3" />
+                      <div key={benefit} className="flex items-center text-sm text-foreground">
+                        <CheckCircle className="mr-3 h-4 w-4 text-primary flex-shrink-0" />
                         {benefit}
                       </div>
                     ))}
@@ -217,28 +180,22 @@ export function BenefitsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.8 }}
-          className="bg-muted/50 mt-20 grid gap-8 rounded-2xl p-8 text-center sm:grid-cols-3"
+          className="bg-card border-border/50 mt-20 grid gap-8 rounded-2xl p-8 text-center sm:grid-cols-3 border"
         >
           <div>
-            <div className="text-primary mb-2 text-3xl font-bold">80%</div>
-            <div className="text-muted-foreground text-sm">
-              Time Saved on Admin Tasks
-            </div>
+            <div className="text-primary mb-2 text-4xl font-bold">80%</div>
+            <div className="text-muted-foreground text-sm">Time Saved on Admin Tasks</div>
           </div>
           <div>
-            <div className="text-primary mb-2 text-3xl font-bold">90%</div>
-            <div className="text-muted-foreground text-sm">
-              Faster Decision Making
-            </div>
+            <div className="text-primary mb-2 text-4xl font-bold">90%</div>
+            <div className="text-muted-foreground text-sm">Faster Decision Making</div>
           </div>
           <div>
-            <div className="text-primary mb-2 text-3xl font-bold">99%</div>
-            <div className="text-muted-foreground text-sm">
-              Accuracy Improvement
-            </div>
+            <div className="text-primary mb-2 text-4xl font-bold">99%</div>
+            <div className="text-muted-foreground text-sm">Accuracy Improvement</div>
           </div>
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

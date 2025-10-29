@@ -1,107 +1,75 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes"; // theme hook
 
 interface LogoProps {
-  /**
-   * Size variant for the logo
-   */
   size?: "sm" | "md" | "lg" | "xl";
-  /**
-   * Whether the logo should be clickable and navigate to home
-   */
   clickable?: boolean;
-  /**
-   * Custom className for styling
-   */
   className?: string;
-  /**
-   * Whether to show the text alongside the icon
-   */
-  showText?: boolean;
-  /**
-   * Custom onClick handler (overrides default navigation)
-   */
   onClick?: () => void;
+  showText?: boolean; // backward compatibility
 }
 
 const sizeConfig = {
-  sm: {
-    container: "h-6 w-6",
-    text: "text-base",
-    icon: "text-sm",
-    dot: "h-1.5 w-1.5",
-  },
-  md: {
-    container: "h-8 w-8",
-    text: "text-xl",
-    icon: "text-lg",
-    dot: "h-2 w-2",
-  },
-  lg: {
-    container: "h-10 w-10",
-    text: "text-2xl",
-    icon: "text-xl",
-    dot: "h-2.5 w-2.5",
-  },
-  xl: {
-    container: "h-12 w-12",
-    text: "text-3xl",
-    icon: "text-2xl",
-    dot: "h-3 w-3",
-  },
+  sm: { container: "h-6 w-6" },
+  md: { container: "h-8 w-8" },
+  lg: { container: "h-18 w-18" },
+  xl: { container: "h-15 w-40" },
 };
 
 export function Logo({
   size = "md",
   clickable = true,
   className,
-  showText = true,
   onClick,
 }: LogoProps) {
   const router = useRouter();
-  const config = sizeConfig[size];
+  const { theme, systemTheme } = useTheme();
 
+  // Handle "system" preference safely
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
+  // Dynamically pick logo based on current theme
+  // 👇 when the theme is dark (black background), use logo-black.png
+  const logoSrc = currentTheme === "dark" ? "/logo-black.png" : "/logo.png";
+
+  // Handle clicks
   const handleClick = () => {
-    if (onClick) {
-      onClick();
-    } else if (clickable) {
-      router.push("/");
-    }
+    if (onClick) onClick();
+    else if (clickable) router.push("/");
   };
 
-  const logoIcon = (
-    <div className="relative">
+  const config = sizeConfig[size];
+
+  const logoImage = (
+    <div className="relative flex items-center justify-center">
       <div
         className={cn(
-          "from-primary to-accent flex items-center justify-center rounded-lg bg-gradient-to-br shadow-lg",
-          config.container,
+          "relative overflow-hidden rounded-lg bg-transparent",
+          config.container
         )}
       >
-        <div className="relative">
-          <span className={cn("font-bold text-white", config.icon)}>H</span>
-          <div
-            className={cn(
-              "bg-accent absolute -top-1 -right-1 animate-pulse rounded-full",
-              config.dot,
-            )}
+        <motion.div
+          key={logoSrc} // helps animate logo change
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="relative h-full w-full"
+        >
+          <Image
+            src={logoSrc}
+            alt="Tick HRMS Logo"
+            fill
+            className="object-contain transition-all duration-300"
+            priority
           />
-        </div>
+        </motion.div>
       </div>
     </div>
-  );
-
-  const logoText = showText && (
-    <span
-      className={cn(
-        "from-primary to-accent bg-gradient-to-r bg-clip-text font-bold text-transparent",
-        config.text,
-      )}
-    >
-      Humantryx
-    </span>
   );
 
   if (clickable || onClick) {
@@ -109,19 +77,13 @@ export function Logo({
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className={cn("flex cursor-pointer items-center space-x-2", className)}
+        className={cn("flex cursor-pointer items-center", className)}
         onClick={handleClick}
       >
-        {logoIcon}
-        {logoText}
+        {logoImage}
       </motion.div>
     );
   }
 
-  return (
-    <div className={cn("flex items-center space-x-2", className)}>
-      {logoIcon}
-      {logoText}
-    </div>
-  );
+  return <div className={cn("flex items-center", className)}>{logoImage}</div>;
 }

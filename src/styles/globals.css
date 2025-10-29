@@ -4,14 +4,14 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ================================
-   LIGHT MODE (Creamy Ghost White)
+   LIGHT MODE
    ================================ */
 :root {
   --background: #f8f8ff;
-  --foreground: oklch(0.20 0 0);
+  --foreground: oklch(27.428% 0.08872 25.2);
 
   --card: #f8f8ff;
-  --card-foreground: oklch(0.20 0 0);
+  --card-foreground: oklch(0.2 0 0);
 
   --primary: oklch(0.56 0.16 255);
   --primary-foreground: #f8f8ff;
@@ -20,7 +20,7 @@
   --secondary-foreground: oklch(0.22 0 0);
 
   --muted: #f0f0fa;
-  --muted-foreground: oklch(0.40 0 0);
+  --muted-foreground: oklch(0.4 0 0);
 
   --accent: #ececff;
   --accent-foreground: oklch(0.22 0 0);
@@ -29,10 +29,9 @@
   --input: #e0e0ee;
   --ring: oklch(0.62 0.14 255);
 
-  /* Charts (Light Mode) */
   --chart-1: oklch(0.56 0.16 255);
   --chart-2: oklch(0.64 0.18 150);
-  --chart-3: oklch(0.70 0.20 90);
+  --chart-3: oklch(0.7 0.2 90);
   --chart-4: oklch(0.75 0.22 40);
   --chart-5: oklch(0.65 0.15 300);
   --chart-bg: #ffffff;
@@ -41,7 +40,7 @@
   --radius: 0.5rem;
 
   --sidebar: #f8f8ff;
-  --sidebar-foreground: oklch(0.20 0 0);
+  --sidebar-foreground: oklch(0.2 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: var(--accent);
@@ -52,71 +51,127 @@
   --shadow-color: oklch(0.45 0 95 / 0.15);
 
   --popover: #f8f8ff;
-  --popover-foreground: oklch(0.20 0 0);
+  --popover-foreground: oklch(0.2 0 0);
 
   --destructive: oklch(0.65 0.23 25);
-  --destructive-foreground: oklch(0.20 0 0);
+  --destructive-foreground: oklch(0.2 0 0);
 }
 
+
+
 /* ================================
-   DARK MODE (Jet Black)
+   DARK MODE (fixed borders)
    ================================ */
 .dark {
-  --background: oklch(0.12 0 0);
+  --background: hsl(0 0% 3.9%);
   --foreground: oklch(0.92 0 0);
 
-  --card: oklch(0.12 0 0);
+  --card: hsl(0 0% 3.9%);
   --card-foreground: oklch(0.92 0 0);
 
   --primary: oklch(0.74 0.15 255);
-  --primary-foreground: oklch(0.16 0 0);
+  --primary-foreground: hsl(0 0% 3.9%);
 
-  --secondary: oklch(0.18 0 0);
+  --secondary: hsl(0 0% 14.9%);
   --secondary-foreground: oklch(0.92 0 0);
 
-  --muted: oklch(0.18 0 0);
+  --muted: hsl(0 0% 14.9%);
   --muted-foreground: oklch(0.75 0 0);
 
-  --accent: oklch(0.22 0.02 255);
+  --accent: hsl(0 0% 14.9%);
   --accent-foreground: oklch(0.92 0 0);
 
-  --border: oklch(0.18 0 0);
-  --input: oklch(0.18 0 0);
+  /* FIX: lighter neutral gray for borders/inputs */
+  --border: hsl(0 0% 14.9%);
+  --input: hsl(0 0% 14.9%);
   --ring: oklch(0.62 0.14 255);
 
-  /* Charts (Bright for Dark Mode) */
-  --chart-1: oklch(0.85 0.20 255); /* blue */
-  --chart-2: oklch(0.88 0.20 150); /* teal */
-  --chart-3: oklch(0.90 0.22 90);  /* green */
-  --chart-4: oklch(0.92 0.23 40);  /* orange */
-  --chart-5: oklch(0.86 0.18 300); /* purple */
-  --chart-bg: oklch(0.20 0 0);     /* dark neutral */
-  --chart-grid: oklch(0.35 0 0);   /* mid-gray grid */
+  --chart-1: oklch(0.85 0.2 255);
+  --chart-2: oklch(0.88 0.2 150);
+  --chart-3: oklch(0.9 0.22 90);
+  --chart-4: oklch(0.92 0.23 40);
+  --chart-5: oklch(0.86 0.18 300);
+  --chart-bg: hsl(0 0% 3.9%);
+  --chart-grid: oklch(0.45 0 0);
 
-  --sidebar: oklch(0.12 0 0);
+  --sidebar: hsl(0 0% 3.9%);
   --sidebar-foreground: oklch(0.92 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: var(--accent);
   --sidebar-accent-foreground: var(--accent-foreground);
-  --sidebar-border: oklch(0.18 0 0);
+  --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
   --shadow-color: oklch(0.06 0 0 / 0.6);
 
-  --popover: oklch(0.12 0 0);
+  --popover: hsl(0 0% 3.9%);
   --popover-foreground: oklch(0.92 0 0);
 
   --destructive: oklch(0.53 0.2 25);
   --destructive-foreground: oklch(0.92 0 0);
 }
 
+
+.navbar {
+  position: relative;
+  z-index: 50; /* higher than sidebar */
+}
+
+/* Ensure sidebar stays below the navbar */
+.sidebar {
+  z-index: 40;
+}
+
+/* ================================
+   SIDEBAR SCROLLBAR HIDING
+   ================================ */
+[data-sidebar="sidebar"] [data-sidebar="content"] {
+  overflow-y: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+[data-sidebar="sidebar"] [data-sidebar="content"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Additional targeting for nested elements */
+[data-sidebar="content"] {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Darken the modal backdrop globally */
+[data-state="open"] > .fixed.inset-0.bg-black\/50 {
+  background-color: rgba(0, 0, 0, 0.8) !important; /* Darker 80% opacity */
+  backdrop-filter: blur(4px); /* Add a soft blur */
+}
+
+
+
+[data-sidebar="content"]::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Catch-all for sidebar scrollbars */
+aside[data-sidebar="sidebar"] *::-webkit-scrollbar {
+  display: none !important;
+}
+
+aside[data-sidebar="sidebar"] * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
 /* ================================
    THEME MAPPING
    ================================ */
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -174,7 +229,6 @@
     @apply bg-background text-foreground;
   }
 
-  /* Global Card Style with subtle highlight */
   .bg-card {
     @apply border border-primary/15 shadow-sm backdrop-blur-sm;
     background: linear-gradient(
@@ -187,20 +241,30 @@
     box-shadow: 0 8px 24px var(--shadow-color);
   }
 
-  /* Chart background container (optional utility) */
   .chart-container {
     background: var(--chart-bg);
     border-radius: var(--radius);
   }
- .dialog-content {
+
+  .dialog-content {
     @apply border border-primary/15 shadow-lg backdrop-blur-sm;
+    background: var(--popover) !important;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px var(--shadow-color);
+  }
+  
+  /* Light mode gradient overlay for dialogs */
+  :root .dialog-content {
     background: linear-gradient(
       135deg,
       color-mix(in oklab, var(--primary) 8%, transparent),
       color-mix(in oklab, var(--accent) 6%, transparent) 40%,
       var(--popover)
-    );
-    border-radius: var(--radius);
-    box-shadow: 0 8px 24px var(--shadow-color);
+    ) !important;
+  }
+  
+  /* Force opaque background for all dialog content elements */
+  [data-state="open"] [role="dialog"] {
+    background-color: var(--popover) !important;
   }
 }
