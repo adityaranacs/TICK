@@ -229,7 +229,7 @@ export function AttendanceClockCard() {
                 <User className="text-primary h-4 w-4" />
               </div>
               <div>
-                <div className="font-medium">{employee?.user?.name}</div>
+<div className="font-medium">{(employee as any)?.user?.name ?? "Employee"}</div>
                 <div className="text-muted-foreground text-sm capitalize">
                   {employee?.designation.replace("_", " ")}
                 </div>

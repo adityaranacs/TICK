@@ -1,24 +1,23 @@
-import { Button, type ButtonProps } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+
+interface LoadingButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  pending: boolean
+}
 
 export function LoadingButton({
   pending,
   children,
-  onClick,
-  className = "",
+  className,
+  disabled,
   ...props
-}: {
-  pending: boolean;
-  children: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
-} & ButtonProps) {
+}: LoadingButtonProps) {
   return (
     <Button
-      onClick={onClick}
       className={cn("w-full", className)}
-      disabled={pending}
-      {...props}
+      disabled={pending || disabled}
+      {...props} // ✅ automatically includes type, onClick, etc.
     >
       {pending ? (
         <div className="flex items-center justify-center">
@@ -47,5 +46,5 @@ export function LoadingButton({
         children
       )}
     </Button>
-  );
+  )
 }

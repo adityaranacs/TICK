@@ -214,7 +214,6 @@ function AdminDashboardStats() {
   height={250}
   startEndOnly={(stats?.attendanceTrend?.length || 0) > 15}
   className="bg-[var(--chart-bg)] rounded-lg p-2"
-  gridColor="var(--chart-grid)"
 />
           </CardContent>
         </Card>
@@ -232,7 +231,6 @@ function AdminDashboardStats() {
   colors={["hsl(var(--chart-2))"]}
   height={250}
   className="bg-[var(--chart-bg)] rounded-lg p-2"
-  gridColor="var(--chart-grid)"
 />
           </CardContent>
         </Card>

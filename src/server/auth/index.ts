@@ -1,4 +1,3 @@
-// the auth file should be here !!!
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -17,80 +16,94 @@ import { env } from "@/env";
 import { organization } from "better-auth/plugins";
 import { eq } from "drizzle-orm";
 
+// 🧠 Main Auth Configuration
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: schema,
     usePlural: true,
   }),
+
   emailAndPassword: {
     enabled: true,
+
     async sendResetPassword({ url, user, token }) {
       const resetPasswordUrl = `${env.BETTER_AUTH_URL}/reset-password?token=${token}&callbackURL=${encodeURIComponent(url)}`;
 
-      const { error } = await sendResetPasswordEmail({
-        email: user.email,
-        verificationUrl: resetPasswordUrl,
-      });
-
-      if (error) return console.log("sendResetPassword Error: ", error);
+      try {
+        await sendResetPasswordEmail({
+          email: user.email,
+          verificationUrl: resetPasswordUrl,
+        });
+      } catch (error) {
+        console.error("sendResetPassword Error:", error);
+      }
     },
   },
+
   plugins: [
     nextCookies(),
+
     admin({
       adminRoles: ["super_admin"],
       defaultRole: "user",
     }),
+
     organization({
       async sendInvitationEmail(data, _request) {
         const inviteLink = `${env.BETTER_AUTH_URL}/accept-invitation/${data.id}`;
-        const { error } = await sendOrganizationInvitationEmail({
-          email: data.email,
-          inviteLink: inviteLink,
-          orgName: data.organization.name,
-          inviteId: data.id,
-        });
-
-        if (error) {
-          console.log("sendOrganizationInvitationEmail Error: ", error);
+        try {
+          await sendOrganizationInvitationEmail({
+            email: data.email,
+            inviteLink: inviteLink,
+            orgName: data.organization.name,
+            inviteId: data.id,
+          });
+        } catch (error) {
+          console.error("sendOrganizationInvitationEmail Error:", error);
         }
       },
     }),
   ],
+
   user: {
     changeEmail: {
       enabled: true,
       sendChangeEmailVerification: async ({ newEmail, url }, _request) => {
-        const { error } = await sendChangeEmailVerification({
-          email: newEmail,
-          verificationUrl: url,
-        });
-
-        if (error)
-          return console.log("sendChangeEmailVerification Error: ", error);
+        try {
+          await sendChangeEmailVerification({
+            email: newEmail,
+            verificationUrl: url,
+          });
+        } catch (error) {
+          console.error("sendChangeEmailVerification Error:", error);
+        }
       },
     },
   },
 
   emailVerification: {
     sendOnSignUp: true,
-    expiresIn: 60 * 60 * 1, // 1 HOUR
+    expiresIn: 60 * 60 * 1, // 1 hour
     autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, token, url }, request) => {
+
+    sendVerificationEmail: async ({ user, token, url }, _request) => {
       const verificationUrl = `${env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${encodeURIComponent(url)}`;
 
-      const { error } = await sendVerificationEmail({
-        email: user.email,
-        verificationUrl: verificationUrl,
-      });
-
-      if (error) return console.log("sendVerificationEmail Error: ", error);
+      try {
+        await sendVerificationEmail({
+          email: user.email,
+          verificationUrl: verificationUrl,
+        });
+      } catch (error) {
+        console.error("sendVerificationEmail Error:", error);
+      }
     },
   },
 
   socialProviders: {},
   advanced: {},
+
   databaseHooks: {
     session: {
       create: {
@@ -116,11 +129,13 @@ export const auth = betterAuth({
   },
 });
 
+// ✅ Cached session getter
 export const getSession = cache(async () => {
   return await auth.api.getSession({
     headers: await headers(),
   });
 });
 
+// ✅ Type helpers
 export type Session = typeof auth.$Infer.Session;
 export type AuthUserType = Session["user"];

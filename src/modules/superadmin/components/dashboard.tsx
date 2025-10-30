@@ -100,6 +100,12 @@ export function DashboardStats() {
   return <EmployeeDashboardStats employeeId={currentEmployee?.id} />
 }
 
+// "@/modules/superadmin/components/dashboard.tsx"
+export default function SuperAdminDashboard() {
+  return <div>Super Admin Dashboard</div>;
+}
+
+
 function AdminDashboardStats() {
   const dashboardQuery = api.dashboard.getStats?.useQuery()
 
